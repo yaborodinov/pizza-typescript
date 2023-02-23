@@ -1,6 +1,6 @@
 import Categories from './components/Categories';
 import Header from './components/Header';
-import Sort from './components/Header';
+import Sort from './components/Sort';
 import PizzaBlock from './components/PizzaBlock';
 import './scss/app.scss';
 
