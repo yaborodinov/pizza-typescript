@@ -5,7 +5,6 @@ import PizzaBlock from './components/PizzaBlock';
 import pizzasObj from './assets/pizzas.json';
 import './scss/app.scss';
 
-
 function App() {
     return (
         <div className="wrapper">

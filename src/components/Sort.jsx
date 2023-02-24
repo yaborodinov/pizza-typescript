@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import classNames from 'classnames';
 
 const Sort = () => {
+    const sortList = ['Popularity', 'Price', 'Alphabet'];
+
+    const [hideSort, setHideSort] = useState(true);
+    const [checkedType, setCheckedType] = useState(sortList[0]);
+
     return (
-        <div className="sort">
+        <div 
+        className="sort"
+        >
             <div className="sort__label">
                 <svg
                     width="10"
@@ -17,13 +25,23 @@ const Sort = () => {
                 />
                 </svg>
                 <b>Sort by:</b>
-                <span>Popularity</span>
+                <span onClick={() => setHideSort(!hideSort)}>
+                    {checkedType}
+                </span>
             </div>
-            <div className="sort__popup">
+            <div 
+            className={classNames('sort__popup', { 'hide': hideSort })}
+            >
                 <ul>
-                    <li className="active">Popularity</li>
-                    <li>Price</li>
-                    <li>alphabet</li>
+                    {sortList.map((el, i) => <li 
+                        key={el + '_' + i}
+                        className={classNames({'active': checkedType === el})}
+                        onClick={() => {
+                            setCheckedType(el);
+                            setHideSort(!hideSort);
+                        }}>
+                            {el}
+                    </li>)}
                 </ul>
             </div>
         </div>
