@@ -1,28 +1,33 @@
 import React from 'react';
 
-const PizzaBlock = () => {
+const PizzaBlock = ({
+    imgUrl,
+    title,
+    price,
+    sizes
+ }) => {
 
     return (
         <div className="pizza-block">
             <img
                 className="pizza-block__image"
-                src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+                src={imgUrl}
                 alt="Pizza"
             />
-            <h4 className="pizza-block__title">4 Cheeses pizza</h4>
+            <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
                 <ul>
                     <li className="active">thin</li>
                     <li>traditional</li>
                 </ul>
                 <ul>
-                    <li className="active">26 cm.</li>
-                    <li>30 cm.</li>
-                    <li>40 cm.</li>
+                    {sizes.map(size => <li
+                        key={title + size}
+                    >{size} cm.</li>)}
                 </ul>
             </div>
             <div className="pizza-block__bottom">
-                <div className="pizza-block__price">from 3.9 $</div>
+                <div className="pizza-block__price">from {price} $</div>
                 <div className="button button--outline button--add">
                     <svg
                         width="12"

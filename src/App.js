@@ -2,6 +2,7 @@ import Categories from './components/Categories';
 import Header from './components/Header';
 import Sort from './components/Sort';
 import PizzaBlock from './components/PizzaBlock';
+import pizzasObj from './assets/pizzas.json';
 import './scss/app.scss';
 
 
@@ -17,15 +18,13 @@ function App() {
                     </div>
                     <h2 className="content__title">All pizzas</h2>
                     <div className="content__items">
-                        <PizzaBlock/>
-                        <PizzaBlock/>
-                        <PizzaBlock/>
-                        <PizzaBlock/>
-                        <PizzaBlock/>
-                        <PizzaBlock/>
-                        <PizzaBlock/>
-                        <PizzaBlock/>
-                        <PizzaBlock/>
+                        {pizzasObj.map(property => <PizzaBlock 
+                            key={property.id} 
+                            imgUrl={property.imageUrl}
+                            title={property.title}
+                            price={property.price}
+                            sizes={property.sizes}
+                        />)}
                     </div>
                 </div>
             </div>
