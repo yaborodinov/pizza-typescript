@@ -12,17 +12,13 @@ const Categories = () => {
         "Spicy",
         "Closed"
     ];
-
-    const setActive = (index) => {
-        setActiveElement(index);
-    }
     
     return (
         <div className="categories">
             <ul>
                 { categories.map((value, index) => <li 
                     className={activeElement === index ? 'active' : ''}
-                    onClick={() => setActive(index)}
+                    onClick={() => setActiveElement(index)}
                     key={value + "_" + index}
                 >{value}</li>)}
             </ul>
