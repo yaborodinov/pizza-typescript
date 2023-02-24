@@ -24,6 +24,7 @@ function App() {
                             title={property.title}
                             price={property.price}
                             sizes={property.sizes}
+                            types={property.types}
                         />)}
                     </div>
                 </div>

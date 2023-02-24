@@ -4,8 +4,13 @@ const PizzaBlock = ({
     imgUrl,
     title,
     price,
-    sizes
+    sizes,
+    types
  }) => {
+
+    const [activeType, setActiveType] = React.useState(0);
+
+    const typeNames = ['thin', 'traditional'];
 
     return (
         <div className="pizza-block">
@@ -17,8 +22,10 @@ const PizzaBlock = ({
             <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    <li className="active">thin</li>
-                    <li>traditional</li>
+                    {types.map((el, index) => <li 
+                        className={activeType === index ? 'active' : ''}
+                        onClick={() => setActiveType(index)}
+                    >{typeNames[el]}</li>)}
                 </ul>
                 <ul>
                     {sizes.map(size => <li
