@@ -29,7 +29,7 @@ const Home = () => {
             <div className="content__items">
                 {
                     isLoading ?
-                    [... new Array(6)].map((_, i) => <Skeleton key={i}/> ) :
+                    [...new Array(6)].map((_, i) => <Skeleton key={i}/> ) :
                     items.map(property => <PizzaBlock key={property.id} {...property}/>)
                 }
             </div>

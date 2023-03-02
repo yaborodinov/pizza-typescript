@@ -6,8 +6,21 @@
 
   .container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
+
+    @media (min-width: 560px) {
+      flex-direction: row;
+    }
+    
+    .header__cart {
+      margin-top: 20px;
+      
+      @media (min-width: 560px) {
+        margin-top: 0;
+      }
+    }
   }
 
   &__logo {
