@@ -7,25 +7,38 @@ import PizzaBlock from '../components/PizzaBlock';
 import Categories from '../components/Categories';
 
 const Home = () => {
-
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
+    const [categoryId, setCategoryId] = useState(0);
+    const [sortType, setSortType] = useState({
+        name: 'Popularity',
+        sortProperty: 'rating'
+    });
+    
     useEffect(() => {
+        setIsLoading(true);
+        
         const apiUrl = 'https://63fb84524e024687bf79fb74.mockapi.io/items';
-        axios.get(apiUrl).then((resp) => {
+        const sortUrl = apiUrl + (categoryId > 0 ? `?category=${categoryId}&` : '?') + 'sortBy=' + sortType.sortProperty + '&order=asc'
+        axios.get(sortUrl).then((resp) => {
             setItems(resp.data);
             setIsLoading(false);
         });
         
         window.scrollTo(0, 0);
-        }, []);
+    }, [categoryId, sortType]);
 
     return (
         <>
             <div className="content__top">
-                <Categories/>
-                <Sort/>
+                <Categories
+                    value={categoryId}
+                    onChangeCategoryId={(i) => setCategoryId(i)}
+                 />
+                <Sort 
+                    value={sortType}
+                    onChangeSortType={(obj) => setSortType(obj)}
+                />
             </div>
             <h2 className="content__title">All pizzas</h2>
             <div className="content__items">

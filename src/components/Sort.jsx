@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-const Sort = () => {
-    const sortList = ['Popularity', 'Price', 'Alphabet'];
-
+const Sort = ({value, onChangeSortType}) => {
+    const sortList = [
+        {name: 'Popularity', sortProperty: 'rating'}, 
+        {name: 'Price', sortProperty: 'price'},
+        {name: 'Alphabet', sortProperty: 'title'}
+    ];
     const [hideSort, setHideSort] = useState(true);
-    const [checkedType, setCheckedType] = useState(sortList[0]);
 
     return (
         <div 
@@ -26,21 +28,21 @@ const Sort = () => {
                 </svg>
                 <b>Sort by:</b>
                 <span onClick={() => setHideSort(!hideSort)}>
-                    {checkedType}
+                    {value.name}
                 </span>
             </div>
             <div 
             className={classNames('sort__popup', { 'hide': hideSort })}
             >
                 <ul>
-                    {sortList.map((el, i) => <li 
-                        key={el + '_' + i}
-                        className={classNames({'active': checkedType === el})}
+                    {sortList.map((obj, i) => <li 
+                        key={obj.name + '_' + i}
+                        className={classNames({'active': value.sortProperty === obj.sortProperty})}
                         onClick={() => {
-                            setCheckedType(el);
+                            onChangeSortType(obj);
                             setHideSort(!hideSort);
                         }}>
-                            {el}
+                            {obj.name}
                     </li>)}
                 </ul>
             </div>
