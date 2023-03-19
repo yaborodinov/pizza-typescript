@@ -3,9 +3,12 @@ import classNames from 'classnames';
 
 const Sort = ({value, onChangeSortType}) => {
     const sortList = [
-        {name: 'Popularity', sortProperty: 'rating'}, 
-        {name: 'Price', sortProperty: 'price'},
-        {name: 'Alphabet', sortProperty: 'title'}
+        {name: 'Popularity (DESK)', sortProperty: 'rating'}, 
+        {name: 'Popularity (ASK)', sortProperty: '-rating'}, 
+        {name: 'Price (DESK)', sortProperty: 'price'},
+        {name: 'Price (ASK)', sortProperty: '-price'},
+        {name: 'Alphabet (DESC)', sortProperty: 'title'},
+        {name: 'Alphabet (ASK)', sortProperty: '-title'}
     ];
     const [hideSort, setHideSort] = useState(true);
 

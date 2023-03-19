@@ -17,9 +17,12 @@ const Home = () => {
     
     useEffect(() => {
         setIsLoading(true);
+        const category = categoryId > 0 ? `?category=${categoryId}&` : '?';
+        const sortBy = sortType.sortProperty.replace('-', '');
+        const  order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
         
         const apiUrl = 'https://63fb84524e024687bf79fb74.mockapi.io/items';
-        const sortUrl = apiUrl + (categoryId > 0 ? `?category=${categoryId}&` : '?') + 'sortBy=' + sortType.sortProperty + '&order=asc'
+        const sortUrl = apiUrl + `${category}sortBy=${sortBy}&order=${order}`;
         axios.get(sortUrl).then((resp) => {
             setItems(resp.data);
             setIsLoading(false);
