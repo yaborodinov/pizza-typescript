@@ -29,16 +29,17 @@ const Home = ({searchValue}) => {
         const category = categoryId > 0 ? `?category=${categoryId}&` : '?';
         const sortBy = sortType.sortProperty.replace('-', '');
         const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
+        const title = searchValue ? `&title=${searchValue}` : '';
         
         const apiUrl = 'https://63fb84524e024687bf79fb74.mockapi.io/items';
-        const sortUrl = apiUrl + `${category}sortBy=${sortBy}&order=${order}`;
+        const sortUrl = apiUrl + `${category}sortBy=${sortBy}&order=${order + title}`;
         axios.get(sortUrl).then((resp) => {
             setItems(resp.data);
             setIsLoading(false);
         });
         
         window.scrollTo(0, 0);
-    }, [categoryId, sortType]);
+    }, [categoryId, sortType, searchValue]);
 
     return (
         <>
