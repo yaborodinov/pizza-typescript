@@ -2,8 +2,10 @@ import React from 'react';
 import styles from './Search.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { SearchContext } from '../../App';
 
-const Search = ({searchValue, onSearchValueChange}) => {
+const Search = () => {
+    const {searchValue, setSearchValue} = React.useContext(SearchContext);
     
     return (
         <div className={styles.root}>
@@ -16,13 +18,13 @@ const Search = ({searchValue, onSearchValueChange}) => {
                 type="text" 
                 placeholder="Search pizza..." 
                 value={searchValue} 
-                onChange={e => onSearchValueChange(e.target.value)}
+                onChange={e => setSearchValue(e.target.value)}
             />
             {searchValue && 
             <FontAwesomeIcon 
                 className={`${styles.icon} ${styles.iconx}`} 
                 icon={solid("xmark")}
-                onClick={() => onSearchValueChange('')} 
+                onClick={() => setSearchValue('')} 
             />}
         </div>
     )
