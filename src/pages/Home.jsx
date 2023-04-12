@@ -5,6 +5,7 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Categories from '../components/Categories';
+import Pagination from '../components/Pagination';
 
 const Home = ({searchValue}) => {
     const [items, setItems] = useState([]);
@@ -14,8 +15,9 @@ const Home = ({searchValue}) => {
         name: 'Popularity',
         sortProperty: 'rating'
     });
+    const [pageCount, setPageCount] = React.useState(1);
 
-    const skeleton = [...new Array(6)].map((_, i) => <Skeleton key={i}/> );
+    const skeleton = [...new Array(4)].map((_, i) => <Skeleton key={i}/> );
     const pizzas = items.filter(obj => {
         if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
             return true
@@ -31,15 +33,15 @@ const Home = ({searchValue}) => {
         const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
         const title = searchValue ? `&title=${searchValue}` : '';
         
-        const apiUrl = 'https://63fb84524e024687bf79fb74.mockapi.io/items';
-        const sortUrl = apiUrl + `${category}sortBy=${sortBy}&order=${order + title}`;
+        const apiUrl = new URL('https://63fb84524e024687bf79fb74.mockapi.io/items');
+        const sortUrl = apiUrl + `${category}sortBy=${sortBy}&order=${order + title}&page=${pageCount}&limit=${4}`;
         axios.get(sortUrl).then((resp) => {
             setItems(resp.data);
             setIsLoading(false);
         });
         
         window.scrollTo(0, 0);
-    }, [categoryId, sortType, searchValue]);
+    }, [categoryId, sortType, searchValue, pageCount]);
 
     return (
         <>
@@ -61,6 +63,7 @@ const Home = ({searchValue}) => {
                     pizzas
                 }
             </div>
+            <Pagination onPageCountChange={setPageCount}/>
         </>
     )
 }

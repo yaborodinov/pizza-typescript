@@ -42,7 +42,7 @@ body {
   &__items {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     grid-column-gap: 11px;
     
     @media (min-width: 730px) {
