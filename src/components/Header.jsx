@@ -1,11 +1,18 @@
 import React from 'react';
+import { useDispatch } from 'react-redux'
+import { text } from '../redux/slices/inputSlice';
 import { Link } from 'react-router-dom';
 import logoSvg from '../assets/img/pizza-logo.svg';
 import Search from './Search';
 
 const Header = () => {
+    
+    const dispatch = useDispatch()
+
+    console.log(text);
     return (
         <div className="header">
+            <input type="text" placeholder='enter something' onChange={e => dispatch(text(e.target.value))}/>
         <div className="container">
             <Link to="/">
                 <div className="header__logo">
