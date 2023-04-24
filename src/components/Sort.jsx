@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSortType } from '../redux/slices/filterSlice';
 
-const Sort = ({value, onChangeSortType}) => {
+const Sort = () => {
     const sortList = [
         {name: 'Popularity (DESK)', sortProperty: 'rating'}, 
         {name: 'Popularity (ASK)', sortProperty: '-rating'}, 
@@ -12,10 +14,10 @@ const Sort = ({value, onChangeSortType}) => {
     ];
     const [hideSort, setHideSort] = useState(true);
 
+    const sort = useSelector(state => state.filter.sortType);
+    const dispatch = useDispatch();
     return (
-        <div 
-        className="sort"
-        >
+        <div className="sort">
             <div className="sort__label">
                 <svg
                     width="10"
@@ -31,18 +33,16 @@ const Sort = ({value, onChangeSortType}) => {
                 </svg>
                 <b>Sort by:</b>
                 <span onClick={() => setHideSort(!hideSort)}>
-                    {value.name}
+                    {sort.name}
                 </span>
             </div>
-            <div 
-            className={classNames('sort__popup', { 'hide': hideSort })}
-            >
+            <div className={classNames('sort__popup', { 'hide': hideSort })}>
                 <ul>
                     {sortList.map((obj, i) => <li 
                         key={obj.name + '_' + i}
-                        className={classNames({'active': value.sortProperty === obj.sortProperty})}
+                        className={classNames({'active': sort.sortProperty === obj.sortProperty})}
                         onClick={() => {
-                            onChangeSortType(obj);
+                            dispatch(setSortType(obj));
                             setHideSort(!hideSort);
                         }}>
                             {obj.name}

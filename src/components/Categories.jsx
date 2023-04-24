@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+
 const Categories = ({value, onChangeCategoryId}) => {
     const categories = [
         "All",
@@ -10,13 +10,8 @@ const Categories = ({value, onChangeCategoryId}) => {
         "Closed"
     ];
 
-    const text = useSelector((state) => {
-        return state.text.string
-    })
-    
     return (
         <div className="categories">
-            {text}
             <ul>
                 { categories.map((categoryName, index) => <li 
                     className={value === index ? 'active' : ''}

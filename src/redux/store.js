@@ -1,10 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './slices/filterSlice'
-import textReducer from './slices/inputSlice'
+import filter from './slices/filterSlice'
 
 export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-    text: textReducer
-  }, 
+    reducer: {
+        filter,
+    }, 
 })
