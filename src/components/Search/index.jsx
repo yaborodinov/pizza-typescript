@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './Search.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -6,6 +6,12 @@ import { SearchContext } from '../../App';
 
 const Search = () => {
     const {searchValue, setSearchValue} = React.useContext(SearchContext);
+    const inputRef = useRef();
+
+    const onClearInput = () => {
+        inputRef.current.focus();
+        setSearchValue('');
+    }
     
     return (
         <div className={styles.root}>
@@ -15,6 +21,7 @@ const Search = () => {
                 />
             </span>
             <input 
+                ref={inputRef}
                 type="text" 
                 placeholder="Search pizza..." 
                 value={searchValue} 
@@ -24,7 +31,7 @@ const Search = () => {
             <FontAwesomeIcon 
                 className={`${styles.icon} ${styles.iconx}`} 
                 icon={solid("xmark")}
-                onClick={() => setSearchValue('')} 
+                onClick={onClearInput} 
             />}
         </div>
     )
