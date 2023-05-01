@@ -1,16 +1,31 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './Search.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import debounce from 'lodash/debounce';
 import { SearchContext } from '../../App';
 
 const Search = () => {
-    const {searchValue, setSearchValue} = React.useContext(SearchContext);
+    const [inputValue, setInputValue] = useState('');
+    const { setSearchValue } = React.useContext(SearchContext);
     const inputRef = useRef();
 
     const onClearInput = () => {
         inputRef.current.focus();
+        setInputValue('');
         setSearchValue('');
+    }
+    
+    const testDebounce = React.useCallback(
+        debounce((value) => {
+        setSearchValue(value)
+    }, 500),
+        []
+    )
+    
+    const onSlowChange = (e) => {
+        setInputValue(e.target.value);
+        testDebounce(e.target.value);
     }
     
     return (
@@ -24,10 +39,10 @@ const Search = () => {
                 ref={inputRef}
                 type="text" 
                 placeholder="Search pizza..." 
-                value={searchValue} 
-                onChange={e => setSearchValue(e.target.value)}
+                value={inputValue} 
+                onChange={onSlowChange}
             />
-            {searchValue && 
+            {inputValue && 
             <FontAwesomeIcon 
                 className={`${styles.icon} ${styles.iconx}`} 
                 icon={solid("xmark")}
