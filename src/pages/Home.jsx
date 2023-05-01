@@ -8,13 +8,13 @@ import PizzaBlock from '../components/PizzaBlock';
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setPageCount } from '../redux/slices/filterSlice';
 
 const Home = () => {
     const {searchValue} = React.useContext(SearchContext);
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [pageCount, setPageCount] = React.useState(1);
+    const pageCount = useSelector(state => state.filter.pageCount)
 
     const { categoryId, sortType } = useSelector((state) => state.filter);
     const dispatch = useDispatch();
@@ -62,7 +62,7 @@ const Home = () => {
                     pizzas
                 }
             </div>
-            <Pagination onPageCountChange={setPageCount}/>
+            <Pagination onPageCountChange={(value) => dispatch(setPageCount(value))}/>
         </>
     )
 }
