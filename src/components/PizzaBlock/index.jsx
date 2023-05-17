@@ -1,6 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux'
+import { addItem } from '../../redux/slices/cartSlice';
 
 const PizzaBlock = ({
+    id,
     imageUrl,
     title,
     price,
@@ -12,6 +15,21 @@ const PizzaBlock = ({
     const [activeSize, setActiveSize] = React.useState(0);
 
     const typeNames = ['thin', 'traditional'];
+    const dispatch = useDispatch();
+
+
+    const addToCart = () => {
+        const item = {
+            id,
+            imageUrl,
+            title,
+            price,
+            activeType,
+            activeSize
+        }
+
+        dispatch(addItem(item))
+    }
 
     return (
         <div className="pizza-block-wrapper">
@@ -40,7 +58,7 @@ const PizzaBlock = ({
                 </div>
                 <div className="pizza-block__bottom">
                     <div className="pizza-block__price">from {price} $</div>
-                    <div className="button button--outline button--add">
+                    <div className="button button--outline button--add"  onClick={addToCart}>
                         <svg
                             width="12"
                             height="12"
@@ -54,7 +72,7 @@ const PizzaBlock = ({
                             />
                         </svg>
                         <span>Add</span>
-                        <i>2</i>
+                        <i>1</i>
                     </div>
                 </div>
             </div> 
