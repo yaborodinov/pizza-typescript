@@ -10,7 +10,7 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addItem: (state, action) => {
-            const findItems = state.items.find(obj => obj.id === action.payload.id);
+            const findItems = state.items.find(obj => obj.id === action.payload);
             if (findItems) {
                 findItems.count++;
             } else {
@@ -23,10 +23,21 @@ export const cartSlice = createSlice({
             state.totalPrice = state.items.reduce((sum, obj) => sum + obj.price * obj.count, 0)
         },
         removeItem: (state, action) => {
-            state.items = state.items.filter(obj => obj.id !== action.payload)
+            if(window.confirm('Are you sure you want to delete the pizza?')) {
+                state.items = state.items.filter(obj => obj.id !== action.payload)
+                state.totalPrice = state.items.reduce((sum, obj) => sum + obj.price * obj.count, 0)
+            }
+        },
+        minusItem: (state, action) => {
+            const findItems = state.items.find(obj => obj.id === action.payload);
+            if(findItems){
+                findItems.count--;
+            }
+            state.totalPrice = state.items.reduce((sum, obj) => sum + obj.price * obj.count, 0)
         },
         clearItems: (state) => {
             state.items = [];
+            state.totalPrice = 0;
         }
     },
 })
@@ -34,7 +45,8 @@ export const cartSlice = createSlice({
 export const {
     addItem,
     removeItem,
-    clearItems
+    clearItems,
+    minusItem
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

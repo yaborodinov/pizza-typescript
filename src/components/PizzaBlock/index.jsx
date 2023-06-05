@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { addItem } from '../../redux/slices/cartSlice';
 
@@ -28,10 +28,10 @@ const PizzaBlock = ({
             title,
             price,
             activeType,
-            activeSize,
+            activeSize: sizes[activeSize],
         }
 
-        dispatch(addItem(item))
+        dispatch(addItem(item));
     }
 
     return (
@@ -56,7 +56,7 @@ const PizzaBlock = ({
                             key={title + size}
                             className={activeSize === index ? 'active' : ''}
                             onClick={() => setActiveSize(index)}
-                        >{size} cm.</li>)}
+                        >{size} sm.</li>)}
                     </ul>
                 </div>
                 <div className="pizza-block__bottom">
