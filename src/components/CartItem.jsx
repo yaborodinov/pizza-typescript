@@ -6,7 +6,9 @@ function CartItem({id, title, imageUrl, count, price, activeType, activeSize}) {
     const typeNames = ['thin', 'traditional'];
     const dispatch = useDispatch();
     const onPizzaPlus = () => {
-        dispatch(addItem(id))
+        dispatch(addItem({
+            id
+        }))
     }
     const onPizzaMinus = () => {
         dispatch(minusItem(id));
