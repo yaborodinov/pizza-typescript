@@ -34,7 +34,7 @@ const Home = () => {
         return false
     }).map(property => <PizzaBlock key={property.id} {...property}/>);
 
-	const fetchPizzas = () => {
+	const fetchPizzas = async() => {
 		setIsLoading(true);
         const category = categoryId > 0 ? `?category=${categoryId}&` : '?';
         const sortBy = sortType.sortProperty.replace('-', '');
@@ -43,11 +43,15 @@ const Home = () => {
         
         const apiUrl = new URL('https://63fb84524e024687bf79fb74.mockapi.io/items');
         const sortUrl = apiUrl + `${category}sortBy=${sortBy}&order=${order + title}&page=${pageCount}&limit=${4}`;
-        axios.get(sortUrl).then((resp) => {
+        
+        try {
+            const resp = await axios.get(sortUrl)
             setItems(resp.data);
             setIsLoading(false);
-        });
-        
+        } catch (error) {
+            setIsLoading(false);
+            alert('Server Error')          
+        }
         window.scrollTo(0, 0);
 	}
 	
