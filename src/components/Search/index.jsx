@@ -3,22 +3,23 @@ import styles from './Search.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import debounce from 'lodash/debounce';
-import { SearchContext } from '../../App';
+import { useDispatch } from 'react-redux';
+import { setSearchValue } from '../../redux/slices/filterSlice';
 
 const Search = () => {
+    const dispatch = useDispatch()
     const [inputValue, setInputValue] = useState('');
-    const { setSearchValue } = React.useContext(SearchContext);
     const inputRef = useRef();
 
     const onClearInput = () => {
-        inputRef.current.focus();
         setInputValue('');
-        setSearchValue('');
+        dispatch(setSearchValue(''))
+        inputRef.current.focus();
     }
     
     const testDebounce = React.useCallback(
         debounce((value) => {
-        setSearchValue(value)
+        dispatch(setSearchValue(value))
     }, 500),
         []
     )

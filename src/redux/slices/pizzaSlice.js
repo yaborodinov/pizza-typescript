@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const fetchPizzas = createAsyncThunk(
     'pizza/fetchPizzasStatus',
-    async ({sortUrl}) => {
+    async ({sortUrl}, thunkAPI) => {
         const {data} = await axios.get(sortUrl)
         return data
     }
@@ -37,6 +37,8 @@ export const pizzaSlice = createSlice({
         }
     }
 })
+
+export const SelectPizzaData = (state) => state.pizza;
 
 export const {
     setItems,

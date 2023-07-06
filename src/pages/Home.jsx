@@ -9,20 +9,17 @@ import PizzaBlock from '../components/PizzaBlock';
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
-import { setCategoryId, setPageCount, setFilters } from '../redux/slices/filterSlice';
-import { fetchPizzas } from '../redux/slices/pizzaSlice';
+import { setCategoryId, setPageCount, setFilters, selectFilter } from '../redux/slices/filterSlice';
+import { SelectPizzaData, fetchPizzas } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
-    const {searchValue} = React.useContext(SearchContext);
-    const pageCount = useSelector(state => state.filter.pageCount)
-    const {items, status} = useSelector(state => state.pizza)
+    const {items, status} = useSelector(SelectPizzaData)
 
-    const { categoryId, sortType } = useSelector((state) => state.filter);
+    const { categoryId, sortType, pageCount, searchValue } = useSelector(selectFilter);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 	const isSearch = useRef(false);
 	const isMounted = useRef('');
-
 
     const skeleton = [...new Array(4)].map((_, i) => <Skeleton key={i}/> );
     const pizzas = items.filter(obj => {
