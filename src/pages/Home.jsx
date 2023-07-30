@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Sort, { sortList } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
@@ -28,7 +28,7 @@ const Home = () => {
         }
 
         return false
-    }).map(property => <PizzaBlock key={property.id} {...property}/>);
+    }).map(property => <Link key={property.id} to={`/pizza/${property.id}`}><PizzaBlock {...property}/></Link>);
 
 	const getPizzas = () => {
         const category = categoryId > 0 ? `?category=${categoryId}&` : '?';
