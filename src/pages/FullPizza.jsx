@@ -1,11 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const FullPizza = () => {
     const {id} = useParams()
     const [pizza, setPizza] = useState();
 
+    const navigate = useNavigate();
     console.log('pizza > ', pizza);
 
     useEffect(() => {
@@ -16,6 +17,8 @@ const FullPizza = () => {
                 setPizza(data)
             } catch (error) {
                 console.log(error);
+                alert('no pizza')
+                navigate('/')
             }
         }
 
