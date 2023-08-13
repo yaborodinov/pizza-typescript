@@ -9,7 +9,6 @@ const Header = () => {
     const { items, totalPrice } = useSelector(selectCart);
     const {pathname} = useLocation();
 
-    console.log('pathname', pathname);
     const totalPizzaCount = items.reduce((sum, obj) => sum + obj.count, 0);
     return (
         <div className="header">
