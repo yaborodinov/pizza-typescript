@@ -3,7 +3,12 @@ import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSort, setSortType } from '../redux/slices/filterSlice';
 
-export const sortList = [
+type SortItem = {
+    name: string;
+    sortProperty: string;
+}
+
+export const sortList: SortItem[] = [
     {name: 'Popularity (DESK)', sortProperty: 'rating'}, 
     {name: 'Popularity (ASK)', sortProperty: '-rating'}, 
     {name: 'Price (DESK)', sortProperty: 'price'},
@@ -15,13 +20,13 @@ export const sortList = [
 const Sort = () => {
     const [hideSort, setHideSort] = useState(true);
 
-    const sortRef = useRef()
+    const sortRef = useRef<HTMLDivElement>(null);
     const sort = useSelector(selectSort);
     const dispatch = useDispatch();
 
     useEffect(() => {
 
-        const handleClickOutside = (e) => {
+        const handleClickOutside = (e: any) => {
             if(!e.composedPath().includes(sortRef.current)){ 
                 setHideSort(true);
             }
@@ -32,6 +37,11 @@ const Sort = () => {
             document.body.removeEventListener('click', handleClickOutside)
         }
     }, [])
+
+    const onClickListItem = (obj: SortItem) => {
+        dispatch(setSortType(obj));
+        setHideSort(!hideSort);
+    }
 
    
     return (
@@ -59,10 +69,7 @@ const Sort = () => {
                     {sortList.map((obj, i) => <li 
                         key={obj.name + '_' + i}
                         className={classNames({'active': sort.sortProperty === obj.sortProperty})}
-                        onClick={() => {
-                            dispatch(setSortType(obj));
-                            setHideSort(!hideSort);
-                        }}>
+                        onClick={() => onClickListItem(obj)}>
                             {obj.name}
                     </li>)}
                 </ul>

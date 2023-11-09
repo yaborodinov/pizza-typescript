@@ -8,18 +8,17 @@ import Sort, { sortList } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
-import { SearchContext } from '../App';
 import { setCategoryId, setPageCount, setFilters, selectFilter } from '../redux/slices/filterSlice';
 import { SelectPizzaData, fetchPizzas } from '../redux/slices/pizzaSlice';
 
-const Home = () => {
+const Home: React.FC = () => {
     const {items, status} = useSelector(SelectPizzaData)
 
     const { categoryId, sortType, pageCount, searchValue } = useSelector(selectFilter);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 	const isSearch = useRef(false);
-	const isMounted = useRef('');
+	const isMounted = useRef(false);
 
     const skeleton = [...new Array(4)].map((_, i) => <Skeleton key={i}/> );
     const pizzas = items.filter(obj => {
@@ -28,7 +27,7 @@ const Home = () => {
         }
 
         return false
-    }).map(property => <Link key={property.id} to={`/pizza/${property.id}`}><PizzaBlock {...property}/></Link>);
+    }).map(property => <PizzaBlock {...property}/>);
 
 	const getPizzas = () => {
         const category = categoryId > 0 ? `?category=${categoryId}&` : '?';
@@ -39,6 +38,7 @@ const Home = () => {
         const apiUrl = new URL('https://63fb84524e024687bf79fb74.mockapi.io/items');
         const sortUrl = apiUrl + `${category}sortBy=${sortBy}&order=${order + title}&page=${pageCount}&limit=${4}`;
         
+        //@ts-ignore
         dispatch(fetchPizzas({
             sortUrl
         }))
@@ -89,7 +89,7 @@ const Home = () => {
             <div className="content__top">
                 <Categories
                     value={categoryId}
-                    onChangeCategoryId={(i) => dispatch(setCategoryId(i))}
+                    onChangeCategoryId={(i: number) => dispatch(setCategoryId(i))}
                  />
                 <Sort />
             </div>
@@ -110,7 +110,7 @@ const Home = () => {
                 )}
             <Pagination
 				currentPage={pageCount}
-				onPageCountChange={(value) => dispatch(setPageCount(value))}
+				onPageCountChange={(value: number) => dispatch(setPageCount(value))}
 			/>
         </>
     )

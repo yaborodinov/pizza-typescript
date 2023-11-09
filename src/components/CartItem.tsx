@@ -2,7 +2,17 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import { addItem, minusItem, removeItem } from '../redux/slices/cartSlice';
 
-function CartItem({id, title, imageUrl, count, price, activeType, activeSize}) {
+type CartItemProps = {
+    id: string;
+    title: string;
+    imageUrl: string;
+    count: number;
+    price: number;
+    activeType: number;
+    activeSize: number;
+}
+
+const CartItem: React.FC<CartItemProps> = ({id, title, imageUrl, count, price, activeType, activeSize}) => {
     const typeNames = ['thin', 'traditional'];
     const dispatch = useDispatch();
     const onPizzaPlus = () => {

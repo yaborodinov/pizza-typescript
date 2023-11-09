@@ -11,7 +11,6 @@ const FullPizza: React.FC = () => {
     }>();
 
     const navigate = useNavigate();
-    console.log('pizza > ', pizza);
 
     useEffect(() => {
 

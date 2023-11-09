@@ -57,5 +57,8 @@
     "fontawesome-svg-core": {
       "license": "free"
     }
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.200"
   }
 }
