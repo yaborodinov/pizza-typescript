@@ -8,6 +8,10 @@ type SortItem = {
     sortProperty: string;
 }
 
+type PopupClick = MouseEvent & {
+    path: Node[];
+  };
+
 export const sortList: SortItem[] = [
     {name: 'Popularity (DESK)', sortProperty: 'rating'}, 
     {name: 'Popularity (ASK)', sortProperty: '-rating'}, 
@@ -26,8 +30,10 @@ const Sort = () => {
 
     useEffect(() => {
 
-        const handleClickOutside = (e: any) => {
-            if(!e.composedPath().includes(sortRef.current)){ 
+        const handleClickOutside = (e: MouseEvent) => {
+            const _e = e as PopupClick;
+            
+            if(sortRef.current && !_e.composedPath().includes(sortRef.current)){ 
                 setHideSort(true);
             }
         }

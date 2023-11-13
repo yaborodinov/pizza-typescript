@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import qs from 'qs';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Sort, { sortList } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
@@ -45,6 +45,10 @@ const Home: React.FC = () => {
         
         window.scrollTo(0, 0);
 	}
+
+    const onChangeCategory = (i: number) => {
+        dispatch(setCategoryId(i))
+    }
 	
 	useEffect(() => {		
 		const incomeUrl = window.location.search
@@ -89,7 +93,7 @@ const Home: React.FC = () => {
             <div className="content__top">
                 <Categories
                     value={categoryId}
-                    onChangeCategoryId={(i: number) => dispatch(setCategoryId(i))}
+                    onChangeCategoryId={onChangeCategory}
                  />
                 <Sort />
             </div>

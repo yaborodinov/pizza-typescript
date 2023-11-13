@@ -24,7 +24,7 @@ const Search: React.FC = () => {
             []
     )
     
-    const onSlowChange = (e: any) => {
+    const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
         testDebounce(e.target.value);
     }
@@ -41,7 +41,7 @@ const Search: React.FC = () => {
                 type="text" 
                 placeholder="Search pizza..." 
                 value={inputValue} 
-                onChange={onSlowChange}
+                onChange={onChangeInput}
             />
             {inputValue && 
             <FontAwesomeIcon 
